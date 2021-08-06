@@ -43,7 +43,7 @@
 
     // eventListener
     card.addEventListener('click', (event) =>{
-      console.log(document.querySelector('.headline'));
+      console.log(card.textContent);
     })
 
     return card;
