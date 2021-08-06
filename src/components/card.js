@@ -41,6 +41,11 @@
     imgContainer.appendChild(photo);
     author.appendChild(byLine);
 
+    // eventListener
+    card.addEventListener('click', (event) =>{
+      console.log(document.querySelector('.headline'));
+    })
+
     return card;
   }
 
@@ -54,34 +59,38 @@
   // Append each card to the element in the DOM that matches the selector passed to the function.
   //
   const cardAppender = (selector) => { 
-  //   const arrayOfArrays =[];
-  //   const articleArray =[];
-  //   const allArticles = [];
+    const cardsContainer = document.querySelector(selector);
+    const arrayOfArrays =[];
+    const allArticles = [];
 
-  //   axios.get('http://localhost:5000/api/articles')
-  //   .then(response => {
-  //     console.log('This is the response data',response.data.articles);
+    axios.get('http://localhost:5000/api/articles')
+    .then(response => {
+     for (const [key, value] of Object.entries(response.data.articles)){
+       arrayOfArrays.push([value]);
+     }
+    })
+    .then(item => {
+      arrayOfArrays.forEach(array => {
+        array.forEach(item => {
+          item.forEach(article =>{
+            allArticles.push(article);
+          })
+        })
+      });
+      allArticles.forEach(obj => {
+        cardsContainer.appendChild(Card(obj))
+      })
+      // console.log('articleObjArray', allArticles);
+    })
     
-  //    for (const [key, value] of Object.entries(response.data.articles)){
-  //      arrayOfArrays.push([value]);
-  //    }
-  //    arrayOfArrays;
-  //    console.log('arrayOfArrays', arrayOfArrays);
-  //   })
-  //   .then(item => {
-  //     arrayOfArrays.forEach(array => {
-  //       articleArray.push(array);
-  //     });
-  //     console.log('arrays?', articleArray);
-  //   })
-  //   .catch(err =>{
-  //     console.error('Something is wrong with second promise');
-  //   })
+    .catch(err =>{
+      console.error('Something is wrong with second promise');
+    })
 
-  //   .catch(err =>{
-  //     console.error('Something has gone wrong');
-  //   })
-    
+    .catch(err =>{
+      console.error('Something has gone wrong');
+    })
+    return cardsContainer;
   }
 
 export { Card, cardAppender }

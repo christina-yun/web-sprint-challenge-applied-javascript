@@ -25,7 +25,7 @@ import axios from "axios";
 
     topics.forEach(topic => {
       const newTopic = document.createElement('div');
-      newTopic.classList = 'tab';
+      newTopic.classList = 'tab'; /* <- was able to pass code without this earlier*/
       newTopic.textContent = topic;
       topicsDiv.appendChild(newTopic);
     });
