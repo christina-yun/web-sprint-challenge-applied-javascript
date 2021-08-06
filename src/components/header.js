@@ -14,13 +14,13 @@
     //variables
     const header = document.createElement('div');
     const todayDate = document.createElement('span');
-    const lambdaTimes = document.createElement('h1')
-    const todayTemp = document.createElement('span')
+    const lambdaTimes = document.createElement('h1');
+    const todayTemp = document.createElement('span');
 
     //add classes
     header.classList = 'header';
     todayDate.classList ='date';
-    todayTemp.classList = 'temp'
+    todayTemp.classList = 'temp';
 
     //text content
     todayDate.textContent = date;
@@ -45,6 +45,7 @@
     const headerContainer = document.querySelector(selector);
 
     headerContainer.appendChild(Header('Lambda Times', 'August 6, 2021', '65°F'))
+    
     return headerContainer;
   }
 

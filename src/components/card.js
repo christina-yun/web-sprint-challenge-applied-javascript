@@ -34,17 +34,16 @@
     headline.textContent = article.headline;
     photo.src = article.authorPhoto;
     byLine.textContent = `By: ${article.authorName}`;
+    // eventListener
+    card.addEventListener('click', (event) =>{
+      console.log(card.textContent);
+    });
     //build structure
     card.appendChild(headline);
     card.appendChild(author);
     author.appendChild(imgContainer);
     imgContainer.appendChild(photo);
     author.appendChild(byLine);
-
-    // eventListener
-    card.addEventListener('click', (event) =>{
-      console.log(card.textContent);
-    })
 
     return card;
   }
@@ -59,16 +58,19 @@
   // Append each card to the element in the DOM that matches the selector passed to the function.
   //
   const cardAppender = (selector) => { 
+    //variables to be used later
     const cardsContainer = document.querySelector(selector);
     const arrayOfArrays =[];
     const allArticles = [];
 
     axios.get('http://localhost:5000/api/articles')
+    //promise 1
     .then(response => {
      for (const [key, value] of Object.entries(response.data.articles)){
        arrayOfArrays.push([value]);
      }
     })
+    //promise 2
     .then(item => {
       arrayOfArrays.forEach(array => {
         array.forEach(item => {
@@ -77,16 +79,16 @@
           })
         })
       });
+      //append card to the cards-container div
       allArticles.forEach(obj => {
         cardsContainer.appendChild(Card(obj))
       })
-      // console.log('articleObjArray', allArticles);
     })
-    
+    //promise 2
     .catch(err =>{
       console.error('Something is wrong with second promise');
     })
-
+    //promise 1
     .catch(err =>{
       console.error('Something has gone wrong');
     })
