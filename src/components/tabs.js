@@ -16,7 +16,7 @@
 import axios from "axios";
 
   //
-  const nameArray =['javascript', 'bootstrap', 'technology'];
+  // const nameArray =['javascript', 'bootstrap', 'technology'];
 
   //actual code
   const Tabs = (topics) => {
@@ -25,12 +25,13 @@ import axios from "axios";
 
     topics.forEach(topic => {
       const newTopic = document.createElement('div');
+      newTopic.classList = 'tab';
       newTopic.textContent = topic;
       topicsDiv.appendChild(newTopic);
     });
     return topicsDiv;
   }
-  console.log(Tabs(nameArray));
+  // console.log(Tabs(nameArray));
 
 
   // TASK 4
@@ -44,7 +45,7 @@ import axios from "axios";
     const tabsContainer = document.querySelector(selector);
        axios.get('http://localhost:5000/api/topics')
      .then(object => {
-       console.log('topics', object.data.topics)
+      //  console.log('topics', object.data.topics)
        tabsContainer.appendChild(Tabs(object.data.topics));
        })
 
@@ -54,7 +55,5 @@ import axios from "axios";
 
      return tabsContainer;
   }
-
-  tabsAppender
-
+// console.log('tabs', tabsAppender('.tabs-container'));
 export { Tabs, tabsAppender }
