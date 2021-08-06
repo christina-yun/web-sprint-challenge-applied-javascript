@@ -34,7 +34,6 @@
 
     return header;
   }
-  Header('Lambda Times', 'August 6, 2021', '65°F');
 
   // TASK 2
   // ---------------------

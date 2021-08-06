@@ -1,4 +1,5 @@
 
+  import axios from 'axios'
   // TASK 5
   // ---------------------
   // Implement this function, which should return the markup you see below.
@@ -52,6 +53,32 @@
   // Create a card from each and every article object in the response, using the Card component.
   // Append each card to the element in the DOM that matches the selector passed to the function.
   //
-  const cardAppender = (selector) => {}
+  const cardAppender = (selector) => { 
+    const arrayOfArrays =[];
+    const articleArray =[];
+    const allArticles = [];
+
+    axios.get('http://localhost:5000/api/articles')
+    .then(response => {
+      console.log('This is the response data',response.data.articles);
+    
+     for (const [key, value] of Object.entries(response.data.articles)){
+       arrayOfArrays.push([value]);
+     }
+     arrayOfArrays;
+     console.log('arrayOfArrays', arrayOfArrays);
+    })
+    .then(array => {
+      console.log('array', array);
+    })
+    .catch(err =>{
+      console.error('Something is wrong with second promise');
+    })
+
+    .catch(err =>{
+      console.error('Something has gone wrong');
+    })
+    
+  }
 
 export { Card, cardAppender }
