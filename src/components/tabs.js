@@ -13,25 +13,21 @@
   //   <div class="tab">technology</div>
   // </div>
   //
+  const nameArray =['javascript', 'bootstrap', 'technology'];
+
   const Tabs = (topics) => {
-    // const topicsDiv = document.createElement('div');
-    // const topic1 = document.createElement('div');
-    // const topic2 = document.createElement('div');
-    // const topic3 = document.createElement('div')
+    const topicsDiv = document.createElement('div');
+    topicsDiv.classList ='topics';
 
-    // topicsDiv.classList.add('topics');
-    // topic1.classList.add('tab');
-    // topic2.classList.add('tab');
-    // topic3.classList.add('tab');
-
-    // // topics.forEach(item => {
-    // //   item.createElement('div');
-    // //   item.classList.add('tab');
-    // //   item.textContent = topics;
-    // });
-
-    // return topicsDiv;
+    topics.forEach(topic => {
+      const newTopic = document.createElement('div');
+      newTopic.textContent = topic;
+      topicsDiv.appendChild(newTopic);
+    });
+    return topicsDiv;
   }
+
+  console.log(Tabs(nameArray));
 
 
   // TASK 4
