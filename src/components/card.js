@@ -1,4 +1,5 @@
-const Card = (article) => {
+
+  import axios from 'axios'
   // TASK 5
   // ---------------------
   // Implement this function, which should return the markup you see below.
@@ -17,9 +18,37 @@ const Card = (article) => {
   //   </div>
   // </div>
   //
-}
+  const Card = (article) => {
+    const card = document.createElement('div');
+    const headline = document.createElement('div');
+    const author = document.createElement('div');
+    const imgContainer = document.createElement('div');
+    const photo = document.createElement('img');
+    const byLine = document.createElement('span');
+    //add classes and attributes
+    card.classList.add('card');
+    headline.classList.add('headline');
+    author.classList.add('author');
+    imgContainer.classList.add('img-container');
+    // text and source content
+    headline.textContent = article.headline;
+    photo.src = article.authorPhoto;
+    byLine.textContent = `By: ${article.authorName}`;
+    // eventListener
+    card.addEventListener('click', (event) =>{
+      console.log(card.textContent);
+    });
+    //build structure
+    card.appendChild(headline);
+    card.appendChild(author);
+    author.appendChild(imgContainer);
+    imgContainer.appendChild(photo);
+    author.appendChild(byLine);
 
-const cardAppender = (selector) => {
+    return card;
+  }
+
+
   // TASK 6
   // ---------------------
   // Implement this function that takes a css selector as its only argument.
@@ -28,6 +57,42 @@ const cardAppender = (selector) => {
   // Create a card from each and every article object in the response, using the Card component.
   // Append each card to the element in the DOM that matches the selector passed to the function.
   //
-}
+  const cardAppender = (selector) => { 
+    //variables to be used later
+    const cardsContainer = document.querySelector(selector);
+    const arrayOfArrays =[];
+    const allArticles = [];
+
+    axios.get('http://localhost:5000/api/articles')
+    //promise 1
+    .then(response => {
+     for (const [key, value] of Object.entries(response.data.articles)){
+       arrayOfArrays.push([value]);
+     }
+    })
+    //promise 2
+    .then(item => {
+      arrayOfArrays.forEach(array => {
+        array.forEach(item => {
+          item.forEach(article =>{
+            allArticles.push(article);
+          })
+        })
+      });
+      //append card to the cards-container div
+      allArticles.forEach(obj => {
+        cardsContainer.appendChild(Card(obj))
+      })
+    })
+    //promise 2
+    .catch(err =>{
+      console.error('Something is wrong with second promise');
+    })
+    //promise 1
+    .catch(err =>{
+      console.error('Something has gone wrong');
+    })
+    return cardsContainer;
+  }
 
 export { Card, cardAppender }
